@@ -1,4 +1,4 @@
-import {Sequelize} from 'sequelize';
+import {Sequelize} from 'sequelize-typescript';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -9,6 +9,8 @@ const sequelize = new Sequelize({
     host: process.env.DB_HOST ,
     dialect: 'mysql' ,
     port: Number(process.env.DB_PORT) ,
+    models:[__dirname + '/models'], 
+    
 });
 
 sequelize.authenticate()
@@ -18,5 +20,15 @@ sequelize.authenticate()
     .catch((error) => {
         console.error('Unable to connect to the database:', error);
     });
+
+
+    sequelize.sync({ force: false })
+    .then(() => {   
+        console.log('Database synchronized successfully.');
+    })
+    .catch((error) => {
+        console.error('Error synchronizing the database:', error);
+    }
+    );
 
 export default sequelize;
