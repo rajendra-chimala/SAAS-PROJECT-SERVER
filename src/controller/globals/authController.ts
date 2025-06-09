@@ -5,6 +5,7 @@
 import { Request, Response } from "express";
 import User from "../../database/models/user.model";
 import bcrypt from "bcrypt";
+import JWT from "jsonwebtoken"
 
 export const registerUser = async (req: Request, res: Response) => {
 
@@ -39,6 +40,10 @@ export const loginUser = async(req:Request, res:Response)=>{
         return res.status(401).json({ message: "Invalid email or password." });
     }
     // Here you would typically generate a JWT token and send it back to the client
-    return res.status(200).json({ message: "Login successful." });
+    const token = JWT.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET
+        || "default_secret", {
+        expiresIn: "1h"
+    });
+    return res.status(200).json({ message: "Login successful.", token, user: { id: user.id, username: user.username, email: user.email } });
 
 }
