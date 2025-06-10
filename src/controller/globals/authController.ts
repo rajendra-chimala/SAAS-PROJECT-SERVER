@@ -32,12 +32,13 @@ export const loginUser = async(req:Request, res:Response)=>{
         return res.status(400).json({ message: "Email and password are required." });
     }
     const user = await User.findOne({ where: { email } });
+    console.log(user)
     if (!user) {
         return res.status(401).json({ message: "Invalid email or password." });
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-        return res.status(401).json({ message: "Invalid email or password." });
+        return res.status(401).json({ message: "Wrong email or password." });
     }
     // Here you would typically generate a JWT token and send it back to the client
     const token = JWT.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET
