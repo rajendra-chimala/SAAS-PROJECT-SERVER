@@ -8,9 +8,9 @@ export const createInstitute = async (req:Request, res:Response) => {
         const instituteVatNo = req.body.instituteVatNo || null;
         const institutePanNo = req.body.institutePanNo || null;
 
-        if(!instituteName || !instituteEmail || !institutePhone || !instituteAddress) {
-            return res.status(400).json({ error: "All fields are required" });
-        }
+        // if(!instituteName || !instituteEmail || !institutePhone || !instituteAddress) {
+        //     return res.status(400).json({ error: "All fields are required" });
+        // }
 
         await sequelize.query(`CREATE TABLE institute(
             id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
