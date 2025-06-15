@@ -31,9 +31,21 @@ export const createInstitute = async (req:Request, res:Response) => {
                 replacements:[instituteName, instituteEmail,institutePhone, instituteAddress, instituteVatNo,institutePanNo ]
             } );
 
+            
+
 
         res.status(201).json({ message: "Institute created successfully" });
     } catch (error) {
         res.status(500).json({ error: "Failed to create institute" });
     }
 } 
+
+
+
+export const createTeacher = async (req:Request, res:Response) => {
+    // await sequelize.query(`CREATE TABLE teacher_${instituteNumber}(
+    //         id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    //         teacherName VARCHAR(255) NOT NULL,
+    //         teacherEmail VARCHAR(255) NOT NULL UNIQUE,
+    //         teacherPhone VARCHAR(15) NOT NULL)`)
+}
